@@ -1,0 +1,22 @@
+diff --git a/crosstool-NG b/crosstool-NG
+--- a/crosstool-NG
++++ b/crosstool-NG
+@@ -1 +1 @@
+-Subproject commit 37b07f6fbea2e5d23434f7e91614528f839db056
++Subproject commit 37b07f6fbea2e5d23434f7e91614528f839db056-dirty
+diff --git a/crosstool-config-overrides b/crosstool-config-overrides
+index a021795..852ec2e 100644
+--- a/crosstool-config-overrides
++++ b/crosstool-config-overrides
+@@ -3,3 +3,11 @@
+ #CT_STATIC_TOOLCHAIN=y
+ CT_LIBC_NEWLIB_ENABLE_TARGET_OPTSPACE=y
+ 
++# Building gcc 4.8.5 requires C++ 2003 and fails for C++ 2017... force
++# the dialect to C++ 2003 (see https://gcc.gnu.org/gcc-4.8/changes.html)
++CT_EXTRA_CFLAGS_FOR_HOST=--std=c++03
++
++# Building gdb-cross requires Python and the distutils package which
++# is deprecated in Python 3.12 and later... just disable Python
++CT_GDB_CROSS_PYTHON=n
++

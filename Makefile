@@ -20,6 +20,8 @@ build/lx106/Makefile:
 
 build/lx106/patched: build/lx106/Makefile
 	$Qcd "$(dir $@)" && patch -p0 < ../../esp8266-configure.patch
+	$Qcd "$(dir $<)" && git apply ../../esp8266-companion_libs.patch
+	$Qcd "$(dir $<)" && git apply ../../esp8266-config-overrides.patch
 	@touch $@
 
 esp8266-$(VER)/bin/xtensa-lx106-elf-gcc: build/lx106/patched
@@ -66,7 +68,7 @@ build/toolchain-esp32-$(VER).tar.xz: esp32-$(VER)/bin/xtensa-esp32-elf-gcc
 
 .PHONY:clean
 clean:
-	-rm -rf build/esp32 build/lx106 build/toolchain-*.tar.xz esp8266-* esp32-*
+	-rm -rf build/esp32 build/lx106 build/toolchain-*.tar.xz esp8266-*.? esp32-*.?
 
 .SUFFIXES:
 %: %,v
